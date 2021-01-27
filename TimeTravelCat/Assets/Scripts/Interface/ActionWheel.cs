@@ -31,12 +31,14 @@ public class ActionWheel : MonoBehaviour {
     SpriteRenderer[] icons;
     SpriteMask center;
     Transform tMasks, tIcons;
+    CircleCollider2D col;
     Interactable _item;
 
     int hoveredButton = -1;
     bool firstFrame = true;
 
     private void Awake() {
+        col = GetComponent<CircleCollider2D>();
         background = transform.GetComponentInChildren<SpriteRenderer>();
         tMasks = transform.GetChild(1);
         tIcons = transform.GetChild(2);
@@ -66,6 +68,8 @@ public class ActionWheel : MonoBehaviour {
     }
 
     private void Update() {
+        if (GameManager.Instance.GamePaused) { return; }
+        CheckMouseOver();
         if (Input.GetMouseButtonDown(1)) {
             Close();
         } else if(Input.GetMouseButtonDown(0) && !firstFrame) {
@@ -88,7 +92,6 @@ public class ActionWheel : MonoBehaviour {
     }
 
     void Close() {
-        Item.wheelExists = false;
         Destroy(gameObject);
     }
 
@@ -121,17 +124,17 @@ public class ActionWheel : MonoBehaviour {
         return (int)(angle / ButtonAngle);
     }
 
-    private void OnMouseOver() {
-        int buttonIndex = GetButtonIndex(Input.mousePosition);
-        if (buttonIndex != hoveredButton) {
-            HoverButton(hoveredButton, false);
-            HoverButton(buttonIndex, true);
-            hoveredButton = buttonIndex;
+    private void CheckMouseOver() {
+        if (col.HasBeenClickedOn(LayerMask.NameToLayer("Interactable"))) {
+            int buttonIndex = GetButtonIndex(Input.mousePosition);
+            if(buttonIndex != hoveredButton) {
+                HoverButton(hoveredButton, false);
+                HoverButton(buttonIndex, true);
+                hoveredButton = buttonIndex;
+            }
+        } else if (hoveredButton != -1) {
+                HoverButton(hoveredButton, false);
+                hoveredButton = -1;
         }
-    }
-
-    private void OnMouseExit() {
-        HoverButton(hoveredButton, false);
-        hoveredButton = -1;
     }
 }
