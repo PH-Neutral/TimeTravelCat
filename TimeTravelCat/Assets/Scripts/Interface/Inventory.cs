@@ -30,7 +30,6 @@ public class Inventory : MonoBehaviour {
             slotItem.slot = emptySlot;
             slotItem.FromInteractable(item);
             emptySlot.AddItem(slotItem);
-            item.Deactivate();
             return true;
         }
         Debug.Log("Failed to add to Inventory...");

@@ -8,10 +8,10 @@ public class FadeScreen : MonoBehaviour {
         get { return _canvasGroup.alpha; }
         set { _canvasGroup.alpha = Mathf.Clamp01(value); }
     }
-    [SerializeField] float startAlpha;
+    [SerializeField] float startAlpha = 0f;
     CanvasGroup _canvasGroup;
 
-    private void Awake() {
+    protected virtual void Awake() {
         _canvasGroup = GetComponent<CanvasGroup>();
         BlockRaycast(startAlpha != 0);
     }

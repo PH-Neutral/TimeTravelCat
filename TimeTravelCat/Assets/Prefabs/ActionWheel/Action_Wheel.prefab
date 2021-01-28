@@ -48,15 +48,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteBackground: {fileID: 21300000, guid: 3dd0071687445f246b3629d94c40cd44, type: 3}
-  spriteCenter: {fileID: 21300000, guid: a62a3e3c29fdb0a418826c19bd039491, type: 3}
-  spriteArm: {fileID: 21300000, guid: 88aa1d9dc3e4fc84f91f49ca787897ad, type: 3}
+  spriteCenter: {fileID: 21300000, guid: 6b984ef24da826c4681f9d692bc44689, type: 3}
+  spriteArm: {fileID: 21300000, guid: 226c9e73aa0b5b54a95fca9c17c5c598, type: 3}
   prefabMask: {fileID: 4473780230568609393, guid: 13005cb90355b7b43a71c7cdcd4875e6,
     type: 3}
-  backgroundColor: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 1}
+  backgroundColor: {r: 1, g: 1, b: 1, a: 1}
   spriteIcons:
-  - {fileID: 21300000, guid: 926915d4029f3f049bd0f89c09f18d8c, type: 3}
-  - {fileID: 21300000, guid: 926915d4029f3f049bd0f89c09f18d8c, type: 3}
-  - {fileID: 21300000, guid: 926915d4029f3f049bd0f89c09f18d8c, type: 3}
+  - {fileID: 21300000, guid: e794f59efff81d64c90c37761a6e7084, type: 3}
+  - {fileID: 21300000, guid: fa1cf8a06d5127f469389f78199b4632, type: 3}
+  - {fileID: 21300000, guid: a2312b8277ce0094c8dd93869c5d2683, type: 3}
   prefabIcon: {fileID: 2720030437126272818, guid: bbdc078671a25084fa850d979b7b4b7b,
     type: 3}
   actions: 010000000200000003000000
@@ -75,7 +75,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 5.2
 --- !u!1 &4808524937080868247
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,8 +176,8 @@ SpriteRenderer:
   m_SortingLayerID: -1367249145
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3dd0071687445f246b3629d94c40cd44, type: 3}
-  m_Color: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 4753de14ce7a3014aa4d13acb6c68064, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

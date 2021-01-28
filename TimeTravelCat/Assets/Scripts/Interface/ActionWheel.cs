@@ -20,20 +20,19 @@ public class ActionWheel : MonoBehaviour {
     float ButtonAngle {
         get { return 360f / (float)actions.Length; }
     }
-    [SerializeField] Sprite spriteBackground;
-    [SerializeField] Sprite spriteCenter, spriteArm;
-    [SerializeField] SpriteMask prefabMask;
-    [SerializeField] Color backgroundColor;
-    [SerializeField] Sprite[] spriteIcons;
-    [SerializeField] SpriteRenderer prefabIcon;
-    [SerializeField] Action[] actions;
+    //[SerializeField] Sprite spriteBackground = null;
+    [SerializeField] Sprite spriteCenter = null, spriteArm = null;
+    [SerializeField] SpriteMask prefabMask = null;
+    //[SerializeField] Sprite[] spriteIcons = null;
+    [SerializeField] SpriteRenderer prefabIcon = null;
+    [SerializeField] Action[] actions = null;
     SpriteRenderer background;
     SpriteRenderer[] icons;
+    Animator[] iconAnims;
     SpriteMask center;
     Transform tMasks, tIcons;
     CircleCollider2D col;
     Interactable _item;
-
     int hoveredButton = -1;
     bool firstFrame = true;
 
@@ -47,14 +46,15 @@ public class ActionWheel : MonoBehaviour {
     }
 
     void InitializeGraphics() {
-        background.sprite = spriteBackground;
-        background.color = backgroundColor;
+        //background.sprite = spriteBackground;
+        //background.color = backgroundColor;
 
         center = Instantiate(prefabMask, tMasks);
         center.sprite = spriteCenter;
 
         actions = Item.AvailableActions;
         icons = new SpriteRenderer[actions.Length];
+        iconAnims = new Animator[actions.Length];
         for (int i = 0; i < actions.Length; i++) {
             SpriteMask arm = Instantiate(prefabMask, transform.position, Quaternion.Euler(-Vector3.forward * (i + 0.5f) * ButtonAngle), tMasks);
             arm.sprite = spriteArm;
@@ -63,7 +63,8 @@ public class ActionWheel : MonoBehaviour {
             //Debug.Log("icons[i] : " + icons[i]);
             //Debug.Log("actions[i] : " + actions[i] + "(" + (int)actions[i] + ")");
             //Debug.Log("spriteIcons.Length : " + spriteIcons.Length);
-            icons[i].sprite = spriteIcons[(int)actions[i] - 1];
+            iconAnims[i] = icons[i].GetComponent<Animator>();
+            iconAnims[i].SetInteger("IconType", (int)actions[i]);
         }
     }
 
@@ -85,8 +86,7 @@ public class ActionWheel : MonoBehaviour {
 
     void ChooseAction() {
         Action action = GetActionFromIndex(hoveredButton);
-        if(Item.OnAction(action)) {
-        }
+        Item.OnAction(action);
         Close();
         //Debug.Log("Action: " + action.ToString());
     }
@@ -95,15 +95,28 @@ public class ActionWheel : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    void HoverButton(int index, bool hovered = true) {
-        if (index < 0) { return; }
-        icons[index].color = hovered ? Color.red : Color.white;
+    void HoverButton() {
+        int iAction = 0;
+        if (hoveredButton >= 0) {
+            iAction = (int)actions[hoveredButton];
+        }
+        //icons[index].color = hovered ? Color.red : Color.white;
+        for (int i=0; i<iconAnims.Length; i++) {
+            Vector3 scale = Vector3.one;
+            if (i == hoveredButton) {
+                scale *= 1.5f;
+            }
+            icons[i].transform.localScale = scale;
+            iconAnims[i].SetInteger("Hovered", iAction);
+        }
+        
     }
 
     int GetButtonIndex(Vector3 mousePosition) {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(mousePosition);
         mousePos.z = 0;
         Vector3 rVector = mousePos - transform.position;
+        //Debug.Log(CenterRadius + " < " + rVector.magnitude + " < " + FullRadius);
         //Debug.DrawLine(transform.position, mousePos, Color.green, 0.5f);
         //Debug.Log("rVector.magnitude = " + rVector.magnitude);
         if (rVector.magnitude < CenterRadius || rVector.magnitude > FullRadius) { return -1; }
@@ -128,13 +141,12 @@ public class ActionWheel : MonoBehaviour {
         if (col.HasBeenClickedOn(LayerMask.NameToLayer("Interactable"))) {
             int buttonIndex = GetButtonIndex(Input.mousePosition);
             if(buttonIndex != hoveredButton) {
-                HoverButton(hoveredButton, false);
-                HoverButton(buttonIndex, true);
                 hoveredButton = buttonIndex;
+                HoverButton();
             }
         } else if (hoveredButton != -1) {
-                HoverButton(hoveredButton, false);
-                hoveredButton = -1;
+            hoveredButton = -1;
+            HoverButton();
         }
     }
 }

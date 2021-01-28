@@ -3,14 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public static class Utils {
+    static int fingerID = -1;
 
     public static bool HasBeenClickedOn(this Collider2D col, int layer) {
+        #if !UNITY_EDITOR
+            fingerID = 0; 
+        #endif
+        if(EventSystem.current.IsPointerOverGameObject(fingerID))    // is the touch on the GUI
+        {
+            // GUI Action
+            return false;
+        }
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 15f, ~layer);
+        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 15f);//, ~layer);
         return hit.collider != null && hit.collider == col;
     }
+
+    #region Time
+
+    public static IEnumerator WaitForUnscaledSeconds(float seconds) {
+        float timer = seconds;
+        while (timer > 0) {
+            timer -= Time.unscaledDeltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    #endregion
 
     #region Events
 

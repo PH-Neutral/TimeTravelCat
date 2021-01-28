@@ -7,7 +7,7 @@ public class Stage : MonoBehaviour {
 
     public void Next(Stage nextStage) {
         this.nextStage = nextStage;
-        StartCoroutine("RoutineNext");
+        StartCoroutine(nameof(RoutineNext));
     }
     IEnumerator RoutineNext() {
         yield return RoutineLeave();
@@ -18,16 +18,17 @@ public class Stage : MonoBehaviour {
 
     public void Enter() {
         //Debug.Log("Enter Stage (start coroutine)");
-        StartCoroutine("RoutineEnter");
+        StartCoroutine(nameof(RoutineEnter));
     }
-    IEnumerator RoutineEnter() {
+    public IEnumerator RoutineEnter() => RoutineEnter(GameManager.Instance.stageFadeDuration);
+    public IEnumerator RoutineEnter(float fadeDuration) {
         //Debug.Log("Enter Stage");
-        yield return GameManager.Instance.blackScreen.FadeIn(GameManager.Instance.stageFadeDuration);
+        yield return GameManager.Instance.blackScreen.FadeIn(fadeDuration);
         GameManager.Instance.actualStage = this;
     }
 
     public void Leave() {
-        StartCoroutine("RoutineLeave");
+        StartCoroutine(nameof(RoutineLeave));
     }
     IEnumerator RoutineLeave() {
         yield return GameManager.Instance.blackScreen.FadeOut(GameManager.Instance.stageFadeDuration);

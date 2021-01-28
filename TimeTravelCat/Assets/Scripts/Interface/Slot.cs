@@ -25,9 +25,7 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         Interactable element = sceneElement.GetComponent<Interactable>();
         if (element != null) {
             //Debug.Log("Dropped on: " + sceneElement.name);
-            if (element.OnAction(Action.Receive, _slotItem)) {
-                Destroy(_slotItem.gameObject);
-            }
+            element.OnAction(Action.Receive, _slotItem);
         }
     }
 

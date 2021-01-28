@@ -22,11 +22,13 @@ public class SlotItem : MonoBehaviour {
         img.sprite = item.sprite;
         img.color = item.color;
         img.AdaptToParent(slot.transform as RectTransform);
-        Item.Deactivate();
+        Item.MakeVisible(false);
+        Item.MakeInteractable(false);
     }
 
     public void ToInteractable(Vector3 position) {
         Item.transform.position = position;
-        Item.Activate(false);
+        Item.MakeVisible(true);
+        Item.MakeInteractable(false);
     }
 }

@@ -8,16 +8,25 @@ public class Interactable : MonoBehaviour {
     public Action[] AvailableActions {
         get {
             List<Action> actions = new List<Action>();
-            if (eventInspect.HasBeenSet()) { actions.Add(Action.Inspect); }
-            if (eventPickUp.HasBeenSet()) { actions.Add(Action.PickUp); }
-            if (eventUse.HasBeenSet()) { actions.Add(Action.Use); }
+            if (canBeInspected) { actions.Add(Action.Inspect); }
+            if (canBePickedUp) { actions.Add(Action.PickUp); }
+            if (canBeUsed) { actions.Add(Action.Use); }
             return actions.ToArray();
         }
     }
     [HideInInspector] public Sprite sprite;
     [HideInInspector] public Color color;
 
+    [SerializeField] InteractableType type = InteractableType.None;
     [SerializeField] Interactable receivableItem = null;
+    [SerializeField] bool canReceive = false;
+    [SerializeField] bool softBlockReceive = false;
+    [SerializeField] bool canBeInspected = false;
+    [SerializeField] bool softBlockInspect = false;
+    [SerializeField] bool canBePickedUp = false;
+    [SerializeField] bool softBlockPickUp = false;
+    [SerializeField] bool canBeUsed = false;
+    [SerializeField] bool softBlockUse = false;
     [SerializeField] UnityEvent eventReceive = null;
     [SerializeField] UnityEvent eventInspect = null;
     [SerializeField] UnityEvent eventPickUp = null;
@@ -62,61 +71,72 @@ public class Interactable : MonoBehaviour {
         return wheel;
     }
 
-    public void Deactivate() {
-        sRend.enabled = col.enabled = false;
+    public void MakeVisible(bool visible) {
+        sRend.enabled = visible;
     }
 
-    public void Activate(bool activateCollider = true) {
-        sRend.enabled = true;
+    public void MakeInteractable(bool activateCollider = true) {
         col.enabled = activateCollider;
     }
 
-    public bool OnAction(Action action, SlotItem item = null) {
+    public void OnAction(Action action, SlotItem item = null) {
         //if(!IsActive) { return false; }
+        bool success;
         switch (action) {
             case Action.Receive:
-                return Receive(item);
-            case Action.Inspect:
-                return Inspect();
-            case Action.PickUp:
-                return PickUp();
-            case Action.Use:
-                return Use();
-            default:
+                if (!canReceive) { return; }
+                success = Receive(item);
                 break;
+            case Action.Inspect:
+                if(!canBeInspected) { return; }
+                success = Inspect();
+                break;
+            case Action.PickUp:
+                if(!canBePickedUp) { return; }
+                success = PickUp();
+                break;
+            case Action.Use:
+                if(!canBeUsed) { return; }
+                success = Use();
+                break;
+            default:
+                return;
+        }
+        InteractableType otherType = item != null ? item.Item.type : InteractableType.None;
+        GameManager.Instance.StartDialogue(action, type, otherType, success);
+    }
+
+    bool Receive(SlotItem slotItem) {
+        if(softBlockReceive) { return false; }
+        //Debug.Log(name + " : OnReceive(item = " + slotItem.Item.name + ")"); 
+        if (receivableItem == slotItem.Item) {
+            slotItem.ToInteractable(transform.position);
+            Destroy(slotItem.gameObject);
+            eventReceive.Invoke();
+            MakeInteractable(false);
+            return true;
         }
         return false;
     }
 
-    bool Receive(SlotItem item) {
-        if(!eventReceive.HasBeenSet()) { return false; }
-        if(receivableItem != item.Item) { return false; }
-        Debug.Log(name + " : OnReceive(item = " + item.Item.name + ")"); 
-        item.ToInteractable(transform.position);
-        Destroy(item.gameObject);
-        eventReceive.Invoke();
-        Deactivate();
-        return true;
-    }
-
     bool Inspect() {
-        if(!eventInspect.HasBeenSet()) { return false; }
-        Debug.Log(name + " : OnInspect()");
+        if(softBlockInspect) { return false; }
+        //Debug.Log(name + " : OnInspect()");
         eventInspect.Invoke();
         return true;
     }
 
     bool PickUp() {
-        if(!eventPickUp.HasBeenSet()) { return false; }
+        if(softBlockPickUp) { return false; }
         bool EnoughPlace = Inventory.Instance.AddItem(this);
-        Debug.Log(name + " : OnPickUp(enoughPlace = " + EnoughPlace + ")");
+        //Debug.Log(name + " : OnPickUp(enoughPlace = " + EnoughPlace + ")");
         eventPickUp.Invoke();
         return true;
     }
 
     bool Use() {
-        if(!eventUse.HasBeenSet()) { return false; }
-        Debug.Log(name + " : OnUse()");
+        if(softBlockUse) { return false; }
+        //Debug.Log(name + " : OnUse()");
         eventUse.Invoke();
         return true;
     }
@@ -148,4 +168,8 @@ public class Interactable : MonoBehaviour {
 
 public enum Action {
     None, Inspect, PickUp, Use, Receive
+}
+
+public enum InteractableType {
+    None, Tab1Door, Tab1WorkerMan, Tab1Plate, Tab1UnderDeskFull, Tab1UnderDeskEmpty, Tab1SandwichBad, Tab1Batteries, Tab2Door, Tab2PictureWife, Tab2SandwichGood
 }
