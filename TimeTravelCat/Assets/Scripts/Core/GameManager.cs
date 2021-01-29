@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour {
     public FadeScreen blackScreen;
     public float stageFadeDuration;
     public float dialogMinDuration;
+    public bool skipCinematics = false;
 
     [SerializeField] Stage[] stages = null;
     [SerializeField] Stage startingStage = null;
@@ -63,19 +64,23 @@ public class GameManager : MonoBehaviour {
     }
 
     IEnumerator PlayStartCinematic() {
-        CinematicScreen cinematic = Instantiate(prefabCinematicStart, canvas.transform);
-        yield return cinematic.PlayCinematic();
+        if (!skipCinematics) {
+            CinematicScreen cinematic = Instantiate(prefabCinematicStart, canvas.transform);
+            yield return cinematic.PlayCinematic();
+            Destroy(cinematic.gameObject);
+        }
         yield return Utils.WaitForUnscaledSeconds(0.5f);
-        Destroy(cinematic.gameObject);
         yield return startingStage.RoutineEnter(stageFadeDuration);
     }
 
     IEnumerator PlayEndCinematic() {
         yield return actualStage.RoutineLeave(stageFadeDuration);
         yield return Utils.WaitForUnscaledSeconds(0.5f);
-        CinematicScreen cinematic = Instantiate(prefabCinematicEnd, canvas.transform);
-        yield return cinematic.PlayCinematic();
-        Destroy(cinematic.gameObject);
+        if(!skipCinematics) {
+            CinematicScreen cinematic = Instantiate(prefabCinematicEnd, canvas.transform);
+            yield return cinematic.PlayCinematic();
+            Destroy(cinematic.gameObject);
+        }
     }
 
     IEnumerator PlayCreditCinematic() {

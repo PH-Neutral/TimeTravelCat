@@ -2694,8 +2694,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f857f079de62934bbf4460f8ead7d99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  languageFileFolderPath: Files
-  languageFileName: dialogs.tsv
+  languageFileFolderPath: Resources/Files
+  languageFileName: txtDialogs.txt
   selectedLanguage: 0
 --- !u!1 &688159614
 GameObject:
@@ -4316,6 +4316,7 @@ MonoBehaviour:
   blackScreen: {fileID: 342908557}
   stageFadeDuration: 1
   dialogMinDuration: 1.5
+  skipCinematics: 0
   stages: []
   startingStage: {fileID: 2048686385}
 --- !u!4 &1366608965

@@ -81,10 +81,11 @@ public class ActionWheel : MonoBehaviour {
         } else if(Input.GetMouseButtonDown(0) && !firstFrame) {
             //Debug.LogError("hoveredButton = " + hoveredButton);
             if (hoveredButton < 0) {
-                CloseNext();
+                //CloseNext();
             } else {
                 ChooseAction();
             }
+            CloseNext();
         }
         firstFrame = false;
     }
@@ -92,12 +93,12 @@ public class ActionWheel : MonoBehaviour {
     void ChooseAction() {
         Action action = GetActionFromIndex(hoveredButton);
         Item.OnAction(action);
-        CloseNext();
         //Debug.Log("Action: " + action.ToString());
     }
 
     void CloseNext() {
         closeWheel = true;
+        Destroy(gameObject);
     }
 
     void HoverButton() {

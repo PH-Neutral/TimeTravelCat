@@ -1,7 +1,0 @@
-ID	ACTION	TARGET	OTHER	FRENCH	ENGLISH
-1	inspect	tab1workerman	none	Il faut que je me dépêche de trouver un repas non avarié pour ce lourdaud avant qu’il ne se réveille.
-2	use	tab1workerman	none	Le griffer ne servirait à rien.
-3	pickup	tab1workerman	none	Et où je le rangerais ?
-4	receive	tab1workerman	tab1batteries	J'ai peur de comprendre.
-5	receive	tab1workerman	tab1picturewife	Je ne pense pas.
-6	receive	tab1workerman	tab2sandwichgood	Je devrais le placer dans son assiette au lieu de lui jeter à la figure.

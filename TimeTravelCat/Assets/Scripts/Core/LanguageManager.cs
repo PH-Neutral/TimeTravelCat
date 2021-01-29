@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Text.RegularExpressions;
 
 public class LanguageManager : MonoBehaviour {
     public static LanguageManager Instance;
@@ -29,6 +30,7 @@ public class LanguageManager : MonoBehaviour {
     }
 
     void LoadLanguageFile() {
+        /*/
         string path = Path.Combine(Application.dataPath, languageFileFolderPath, languageFileName); // get the file path
         if(!File.Exists(path)) {
             Debug.LogError("Language File could not be found at: " + path);
@@ -43,9 +45,14 @@ public class LanguageManager : MonoBehaviour {
         }
         st.Close(); // close the file to avoid conflicts
         //Debug.Log("File successfuly read! (" + lines.Count + " lines extracted)");
-
+        //*/
+        TextAsset dialogs = Resources.Load<TextAsset>("Files/txtDialogs");
+        string fullFile = dialogs.text;
+        //Debug.Log(fullFile);
+        string[] lines = Regex.Split(fullFile, "\n|\r|\r\n");
         items = new Dictionary<string, LangItem>();
-        for (int i=1; i<lines.Count; i++) { // convert extracted lines into LangItem objects and store them in a dictionary
+        for (int i=1; i<lines.Length; i++) { // convert extracted lines into LangItem objects and store them in a dictionary
+            //Debug.Log(lines[i]);
             LangItem item = ConvertLineToItem(lines[i]);
             if (item == null) { 
                 Debug.LogWarning("LanguageFile line could not be converted. Please check file syntax to fix the problem. (at line " + i + ")"); 

@@ -1,0 +1,103 @@
+ID	ACTION	TARGET	OTHER	FRENCH	ENGLISH
+1	inspect	tab1workerman	none	Il faut que je me dépêche de trouver un repas non avarié pour ce lourdaud avant qu’il ne se réveille.
+2	receive	tab1workerman	tab1batteries	J'ai peur de comprendre.
+3	receive	tab1workerman	tab2picturewife	Je ne pense pas.
+4	receive	tab1workerman	tab2sandwichgoodpickable	Je devrais le placer dans son assiette au lieu de lui jeter à la figure.
+5	use	tab1workerman	none	Le griffer ne servirait à rien.
+6	pickup tab1workerman	none	Et où je le rangerais ?
+7	inspect	tab1underdeskfull	none	Il y a quelque chose qui brille là-dessous.
+8	use	tab1underdeskfull	none	Comment ?
+9	pickup	tab1underdeskfull	none	Une pile ! Ca pourrait m'être utile.
+10	inspect	tab1underdeskempty	none	Il n'y a plus rien là-dessous.
+11	use	tab1underdeskempty	none	Commment ?
+12	pickup	tab1underdeskempty	none	Il n'y a rien à attraper sous ce bureau.
+13	receive	tab1underdeskempty	tab1batteries	Pourquoi est-ce que je la remettrais là ?
+14	receive	tab1underdeskempty	tab2picturewife	Je doute de l'efficacité de cette action.
+15	receive	tab1underdeskempty	tab2sandwichgoodpickable	Quel genre de monstre ferait ça ?
+16	inspect	tab1sandwichbad	none	Même affamé, je n'en voudrais pas.
+17	use	tab1sandwichbad	none	Sans façon.
+18	pickup	tab1sandwichbad	none	J'espère ne pas le garder trop longtemps sur moi.
+19	receive	tab1sandwichbad	tab1batteries	Euh...
+20	inspect	tab1plate	none	Il faut un bon repas pour cette assiette.
+21	use	tab1plate	none	Je ne compte pas lécher l'assiette.
+22	pickup	tab1plate	none	Ca ne servirait à rien.
+23	receive	tab1plate	tab2picturewife	À part la dévorer du regarder, il ne pourra pas en faire grand chose.
+24	receive	tab1plate	tab2sandwichgoodpickable	Voilà, ça devrait faire l'affaire.
+25	inspect	tab1commandpanel	none	Je ne sais pas à quoi ça sert, je ne suis qu'un chat.
+26	inspect	tab2foodvendorwaiting	none	Difficile d'avoir des clients si personne ne l'a entendu arriver.
+27	use	tab2foodvendorwaiting	none	Quoi ?
+28	pickup	tab2foodvendorwaiting	none	Je ne crois pas, non.
+29	receive	tab2foodvendorwaiting	tab1batteries	Non, non, non.
+30	receive	tab2foodvendorwaiting	tab2rock	Il y a plusieurs raisons pour lesquelles je ne ferai pas ça.
+31	inspect	tab2foodvendorworking	none	Il faut que je trouve un moyen de l'éloigner de ses sandwiches.
+32	use	tab2foodvendorworking	none	Quoi ?
+33	pickup	tab2foodvendorworking	none	Je ne crois pas, non.
+34	receive	tab2foodvendorworking	tab2rock	Je ne vais pas tenter de l'assommer avec ce caillou.
+35	receive	tab2foodvendorworking	tab2picturewife	Il tenterait probablement de la transformer en jambon.
+36	receive	tab1workerman	tab2rock	Mauvaise idée !
+37	receive	tab1underdeskfull	tab2rock	Euh... Non ?
+38	receive	tab1underdeskempty	tab2rock	Mais pourquoi ?
+39	receive	tab1sandwichbad	tab2rock	Tout à fait, le caillou va taper le sandwich.
+40	receive	tab1plate	tab2rock	Je ne vais pas briser une si belle assiette.
+41	receive	tab1workerman	tab1sandwichbad	C'est précisément ce que j'essaye d'empêcher.
+42	receive	tab2foodvendorwaiting	tab1sandwichbad	Ce serait insulter sa profession.
+43	receive	tab2foodvendorworking	tab1sandwichbad	Je vais lui donner, mais par un moyen détourné.
+44	inspect	tab2sandwichgood	none	Il me faut un sandwich comme ça pour le lourdaud, là-haut.
+45	use	tab2sandwichgood	none	C'est de la nourriture d'humain, non merci.
+46	pickup	tab2sandwichgood	none	Je ne peux pas voler sous ses yeux, il me transformerait en hot-cat !
+47	receive	tab2sandwichgood	tab1sandwichbad	C'est exactement ce que je veux faire, mais sans être vu.
+48	receive	tab2sandwichgood	tab1batteries	Qui voudrait d'un sandwich à la pile ?
+49	receive	tab2sandwichgood	tab2rock	Non ?
+50	receive	tab2sandwichgood	tab2picturewife	Ce serait vraiment une blague de mauvais goût.
+51	inspect	tab2sandwichgoodpickable	none	Il faut que je fasse un échange discret.
+52	use	tab2sandwichgoodpickable	none	Je ne compte pas le manger.
+53	pickup	tab2sandwichgoodpickable	none	Il faut que je le remplace pour ne pas éveiller les soupçons.
+54	receive	tab2sandwichgoodpickable	tab1sandwichbad	Parfait, je n'ai plus qu'à l'amener à la belle au bois dormant.
+55	receive	tab1plate	tab1batteries	Non !
+56	inspect	tab2employee1	none	Il a l'air de faire le boulot de prof de sport à domicile, sans le côté prof.
+57	use	tab2employee1	none	Quoi ?
+58	pickup	tab2employee1	none	Non.
+59	receive	tab2employee1	tab2rock	Mauvaise idée.
+60	receive	tab2employee1	tab1sandwichbad	Il ne le mangerait pas, de toute façon.
+61	receive	tab2employee1	tab2picturewife	Casquette va devenir fou de rage et pousser Prof-de-Sport sur le Foodtruck.
+62	inspect	tab2employee2	none	Il mange son sandwich.
+63	use	tab2employee2	none	Non.
+64	pickup	tab2employee2	none	Non.
+65	receive	tab2employee2	tab1sandwichbad	Ce serait méchant.
+66	receive	tab2employee2	tab2rock	Je peux sûrement faire mieux avec ce caillou.
+67	receive	tab2employee2	tab2picturewife	Je pourrais lui rendre, ou bien être plus vicieux.
+68	inspect	tab2rock	none	C'est un caillou.
+69	use	tab2rock	none	Oui, mais sur quoi ?
+70	pickup	tab2rock	none	Je lui trouverai sûrement une utilité.
+71	receive	tab2rock	tab1sandwichbad	Mais pourquoi, au juste ?
+72	receive	tab2rock	tab1batteries	Oui, mais non.
+73	receive	tab2rock	tab2picturewife	Mmmh... Non.
+74	inspect	tab2picturewife	none	Sa femme doit une être une véritable co-.. truie. Une truie.
+75	use	tab2picturewife	none	Non, vraiment pas.
+76	pickup	tab2picturewife	none	Ca devrait m'être utile.
+77	receive	tab2picturewife	tab2rock	Mmmh... Non.
+78	receive	tab2picturewife	tab1sandwichbad	Non ?
+79	inspect	tab2menfight	none	Le vendeur de sandwich est occupé, c'est le moment.
+80	use	tab2menfight	none	Il y a un temps pour griffer, et un temps pour sauver la planète.
+81	pickup	tab2menfight	none	Euh... Vraiment pas, non.
+82	receive	tab2menfight	tab1sandwichbad	Oui, vraiment, c'est la meilleure solution envisageable.
+83	receive	tab2menfight	tab2sandwichgoodpickable	Le sandwich n'est pas pour eux !
+84	inspect	tab2bluecar	none	C'est une voiture bleue.
+85	use	tab2bluecar	none	Je ne sais même pas conduire.
+86	pickup	tab2bluecar	none	Oui, tout à fait.
+87	receive	tab2bluecar	tab1sandwichbad	Une idée merveilleuse.
+88	receive	tab2bluecar	tab2rock	Pas maintenant.
+89	receive	tab2bluecar	tab2picturewife	Il y a sûrement une meilleure solution.
+90	receive	tab2bluecar	tab1batteries	Et non !
+91	inspect	tab2bluecar2	none	Je devrais faire du bruit pour attirer l'attention de Casquette.
+92	pickup	tab2bluecar2	none	Oui, tout à fait.
+93	use	tab2bluecar2	none	Je ne sais pas conduire.
+94	receive	tab2bluecar2	tab1sandwichbad Une idée merveilleuse.
+95	receive	tab2bluecar2	tab2sandwichgoodpickable	Je... Non.
+96	receive	tab2bluecar2	tab2rock	Ca devrait lui faire remarquer que sa photo a changé de place.
+97	inspect	tab2batterycase	none	Le boîtier de piles est vide.
+98	use	tab2batterycase	none	Il faut que je trouve un moyen de l'alimenter.
+99	pickup	tab2batterycase	none	Non.
+100	receive	tab2batterycase	tab1batteries	Ca devrait faire l'affaire.
+101	receive	tab2batterycase	tab1sandwichbad	Je suis un chat, pas un demeuré.
+102	receive	tab2batterycase	tab2rock	Caillou. Taper. Non.
