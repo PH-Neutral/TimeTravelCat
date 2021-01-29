@@ -48,7 +48,7 @@ public class LanguageManager : MonoBehaviour {
         for (int i=1; i<lines.Count; i++) { // convert extracted lines into LangItem objects and store them in a dictionary
             LangItem item = ConvertLineToItem(lines[i]);
             if (item == null) { 
-                Debug.LogWarning("LanguageFile line could not be converted. Please check file syntax to fix the problem."); 
+                Debug.LogWarning("LanguageFile line could not be converted. Please check file syntax to fix the problem. (at line " + i + ")"); 
                 continue; 
             }
             items[item.Key] = item;
@@ -116,6 +116,7 @@ public class LanguageManager : MonoBehaviour {
 
     public string GetText(string textKey) {
         if (!items.ContainsKey(textKey)) {
+            //Debug.LogWarning("[NO TRANSLATION IS LINKED TO THAT KEY (key: " + textKey + ")]");
             throw new TextNotFoundException();
             //return "[NO TRANSLATION IS LINKED TO THAT KEY (key: " + textKey + ")]";
         }

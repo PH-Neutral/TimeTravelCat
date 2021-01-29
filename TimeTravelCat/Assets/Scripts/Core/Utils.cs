@@ -17,9 +17,29 @@ public static class Utils {
             // GUI Action
             return false;
         }
+        int layers = (1 << layer) | (1 << LayerMask.NameToLayer("UI"));
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 15f);//, ~layer);
-        return hit.collider != null && hit.collider == col;
+        RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos, Vector2.zero, 15f, layers);
+        for (int i=0; i<hits.Length; i++) {
+            //Debug.Log("collided with " + hits[i].collider?.name);
+            if (hits[i].collider != null && hits[i].collider == col) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static bool RaycastCollided(int layer) {
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos, Vector2.zero, 15f, 1<<layer);
+        for(int i = 0; i < hits.Length; i++) {
+            //Debug.Log("collided with " + hits[i].collider?.name);
+            if(hits[i].collider != null) {
+                //Debug.Log("hits[i].collider: " + hits[i].collider.name);
+                return true;
+            }
+        }
+        return false;
     }
 
     #region Time

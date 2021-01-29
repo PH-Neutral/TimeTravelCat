@@ -56,6 +56,6 @@ public class CinematicScreen : FadeScreen {
         }
         //Debug.Log("Sound stops playing");
         yield return FadeIn(1f);
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 }

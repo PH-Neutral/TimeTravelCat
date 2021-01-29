@@ -5,23 +5,30 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
     public static GameManager Instance;
 
-    public bool GamePaused {
+    /*public bool GamePaused {
         get { return Time.timeScale == 0; }
         set { Time.timeScale = value ? 0 : 1; }
+    }*/
+    public bool GamePaused {
+        get { return _isPaused; }
+        set { _isPaused = value; }
     }
     public Stage actualStage {
         get; set;
     }
     public SlotItem prefabSlotItem = null;
     public ActionWheel prefabActionWheel = null;
-    public CinematicScreen cinematicScreen;
+    public CinematicScreen prefabCinematicStart = null;
+    public CinematicScreen prefabCinematicEnd = null;
+    public CinematicScreen prefabCinematicCredit = null;
     public FadeScreen blackScreen;
     public float stageFadeDuration;
     public float dialogMinDuration;
 
     [SerializeField] Stage[] stages = null;
     [SerializeField] Stage startingStage = null;
-    [SerializeField] KeyCode keyPause = KeyCode.Escape;
+    GameObject canvas;
+    bool _isPaused = false;
 
     private void Awake() {
         if(Instance == null) {
@@ -29,23 +36,51 @@ public class GameManager : MonoBehaviour {
         } else {
             Destroy(gameObject);
         }
+        canvas = FindObjectOfType<Canvas>().gameObject;
     }
 
     private void Start() {
-        StartCoroutine(nameof(StartGame));
+        StartGame();
     }
 
     private void Update() {
-        if (GamePaused) { return; }
-        if (Input.GetKeyDown(keyPause)) {
-        }
     }
 
-    IEnumerator StartGame() {
+    public void StartGame() {
         //Debug.Log("Start Game with " + startingStage?.name);
-        yield return cinematicScreen.PlayCinematic();
+        //Debug.Log(cinematic.name + " has finished instantiating.");
+        StartCoroutine(nameof(PlayStartCinematic));
+    }
+
+    public void WinGame() {
+        StartCoroutine(nameof(RoutineWinGame));
+    }
+
+    IEnumerator RoutineWinGame() {
+        yield return PlayEndCinematic();
+        //yield return PlayCreditCinematic();
+        MenuManager.Instance.LoadMainMenuScene();
+    }
+
+    IEnumerator PlayStartCinematic() {
+        CinematicScreen cinematic = Instantiate(prefabCinematicStart, canvas.transform);
+        yield return cinematic.PlayCinematic();
         yield return Utils.WaitForUnscaledSeconds(0.5f);
+        Destroy(cinematic.gameObject);
         yield return startingStage.RoutineEnter(stageFadeDuration);
+    }
+
+    IEnumerator PlayEndCinematic() {
+        yield return actualStage.RoutineLeave(stageFadeDuration);
+        yield return Utils.WaitForUnscaledSeconds(0.5f);
+        CinematicScreen cinematic = Instantiate(prefabCinematicEnd, canvas.transform);
+        yield return cinematic.PlayCinematic();
+        Destroy(cinematic.gameObject);
+    }
+
+    IEnumerator PlayCreditCinematic() {
+        CinematicScreen cinematic = Instantiate(prefabCinematicEnd, canvas.transform);
+        yield return cinematic.PlayCinematic();
     }
 
     public void LoadStage(Stage stage) {
@@ -66,16 +101,11 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    void StopStageThings() {
+    public void StopStageThings() {
+        // stop dialogs
         CancelInvoke(nameof(EndDialog));
         EndDialog();
-
-    }
-
-    void InitStages() {
-        for (int i=0; i<stages.Length; i++) {
-            //
-        }
+        // stop music
     }
 
     void EndDialog() {

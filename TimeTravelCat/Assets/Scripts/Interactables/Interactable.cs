@@ -45,7 +45,9 @@ public class Interactable : MonoBehaviour {
     private void Update() {
         if(GameManager.Instance.GamePaused) { return; }
         if (Input.GetMouseButtonDown(0)) {
-            if (col.HasBeenClickedOn(LayerMask.NameToLayer("Interactable"))) {
+            bool collidedWithActionWheel = Utils.RaycastCollided(LayerMask.NameToLayer("GameUI"));
+            //Debug.Log("collidedWithActionWheel = " + collidedWithActionWheel);
+            if (col.HasBeenClickedOn(LayerMask.NameToLayer("Interactable")) && !collidedWithActionWheel) {
                 Interact();
             }
         }
@@ -79,6 +81,18 @@ public class Interactable : MonoBehaviour {
         col.enabled = activateCollider;
     }
 
+    public void SoftBlockInspect(bool block) {
+        softBlockInspect = block;
+    }
+
+    public void SoftBlockPickUp(bool block) {
+        softBlockPickUp = block;
+    }
+
+    public void SoftBlockUse(bool block) {
+        softBlockUse = block;
+    }
+
     public void OnAction(Action action, SlotItem item = null) {
         //if(!IsActive) { return false; }
         bool success;
@@ -108,11 +122,12 @@ public class Interactable : MonoBehaviour {
 
     bool Receive(SlotItem slotItem) {
         if(softBlockReceive) { return false; }
-        //Debug.Log(name + " : OnReceive(item = " + slotItem.Item.name + ")"); 
+        Debug.Log(name + " : OnReceive(item = " + slotItem.Item.name + ")"); 
         if (receivableItem == slotItem.Item) {
-            slotItem.ToInteractable(transform.position);
-            Destroy(slotItem.gameObject);
             eventReceive.Invoke();
+            slotItem.ToInteractable(transform.position);
+            //Interactable item = slotItem.Item;
+            Destroy(slotItem.gameObject);
             MakeInteractable(false);
             return true;
         }
@@ -127,10 +142,10 @@ public class Interactable : MonoBehaviour {
     }
 
     bool PickUp() {
+        eventPickUp.Invoke();
         if(softBlockPickUp) { return false; }
         bool EnoughPlace = Inventory.Instance.AddItem(this);
         //Debug.Log(name + " : OnPickUp(enoughPlace = " + EnoughPlace + ")");
-        eventPickUp.Invoke();
         return true;
     }
 
@@ -171,5 +186,7 @@ public enum Action {
 }
 
 public enum InteractableType {
-    None, Tab1Door, Tab1WorkerMan, Tab1Plate, Tab1UnderDeskFull, Tab1UnderDeskEmpty, Tab1SandwichBad, Tab1Batteries, Tab2Door, Tab2PictureWife, Tab2SandwichGood
+    None, Tab1Door, Tab1WorkerMan, Tab1Plate, Tab1UnderDeskFull, Tab1UnderDeskEmpty, Tab1SandwichBad, Tab1Batteries, Tab1CommandPanel, 
+    Tab2Door, Tab2PictureWife, Tab2SandwichGood, Tab2SandwichGoodPickable, Tab2BatteryCase, Tab2Rock, Tab2FoodVendorWaiting, Tab2FoodVendorWorking, 
+    Tab2Employee1, Tab2Employee2, Tab2MenFight, Tab2BlueCar, Tab2BlueCar2
 }

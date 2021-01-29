@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8529712395310271095}
   - component: {fileID: 2720030437126272818}
   - component: {fileID: 7003758714010318511}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ActionWheel Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1367249145
   m_SortingLayer: 1
-  m_SortingOrder: 1
+  m_SortingOrder: 11
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

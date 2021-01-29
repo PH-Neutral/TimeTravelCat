@@ -10,7 +10,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 6
     m_ConditionEvent: Hovered
-    m_EventTreshold: 2
+    m_EventTreshold: 3
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5828947559577042345}
   m_Solo: 0
@@ -35,7 +35,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 6
     m_ConditionEvent: IconType
-    m_EventTreshold: 3
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8231331653091698773}
   m_Solo: 0
@@ -137,7 +137,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 6
     m_ConditionEvent: Hovered
-    m_EventTreshold: 3
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 562500624589583240}
   m_Solo: 0
@@ -162,7 +162,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 7
     m_ConditionEvent: Hovered
-    m_EventTreshold: 2
+    m_EventTreshold: 3
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4479251269596007345}
   m_Solo: 0
@@ -191,13 +191,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Hovered
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -221,7 +221,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 7
     m_ConditionEvent: Hovered
-    m_EventTreshold: 3
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8231331653091698773}
   m_Solo: 0
@@ -327,7 +327,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 6
     m_ConditionEvent: IconType
-    m_EventTreshold: 2
+    m_EventTreshold: 3
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4479251269596007345}
   m_Solo: 0
@@ -388,16 +388,16 @@ AnimatorStateMachine:
     m_Position: {x: 180, y: 290, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4479251269596007345}
-    m_Position: {x: 400, y: 290, z: 0}
+    m_Position: {x: 620, y: 290, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5828947559577042345}
-    m_Position: {x: 400, y: 360, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 562500624589583240}
     m_Position: {x: 620, y: 360, z: 0}
   - serializedVersion: 1
+    m_State: {fileID: 562500624589583240}
+    m_Position: {x: 400, y: 360, z: 0}
+  - serializedVersion: 1
     m_State: {fileID: 8231331653091698773}
-    m_Position: {x: 620, y: 290, z: 0}
+    m_Position: {x: 400, y: 290, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4280618755465322216}
     m_Position: {x: 400, y: 200, z: 0}

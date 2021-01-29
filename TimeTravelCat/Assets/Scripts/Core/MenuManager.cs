@@ -82,9 +82,9 @@ public class MenuManager : MonoBehaviour {
         panelPause.SetActive(true);
     }
 
-    public void ExitPauseMenu() {
-        panelPause.SetActive(false);
+    public void ClosePauseMenu() {
         GameManager.Instance.GamePaused = false;
+        panelPause.SetActive(false);
     }
 
     #endregion

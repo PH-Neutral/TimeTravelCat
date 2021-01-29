@@ -35,6 +35,7 @@ public class ActionWheel : MonoBehaviour {
     Interactable _item;
     int hoveredButton = -1;
     bool firstFrame = true;
+    bool closeWheel = false;
 
     private void Awake() {
         col = GetComponent<CircleCollider2D>();
@@ -65,18 +66,22 @@ public class ActionWheel : MonoBehaviour {
             //Debug.Log("spriteIcons.Length : " + spriteIcons.Length);
             iconAnims[i] = icons[i].GetComponent<Animator>();
             iconAnims[i].SetInteger("IconType", (int)actions[i]);
+            //Debug.Log("Action: " + actions[i] + " (" + (int)actions[i] + ")");
         }
     }
 
     private void Update() {
         if (GameManager.Instance.GamePaused) { return; }
+        if (closeWheel) {
+            Destroy(gameObject);
+        }
         CheckMouseOver();
         if (Input.GetMouseButtonDown(1)) {
-            Close();
+            CloseNext();
         } else if(Input.GetMouseButtonDown(0) && !firstFrame) {
             //Debug.LogError("hoveredButton = " + hoveredButton);
             if (hoveredButton < 0) {
-                Close();
+                CloseNext();
             } else {
                 ChooseAction();
             }
@@ -87,12 +92,12 @@ public class ActionWheel : MonoBehaviour {
     void ChooseAction() {
         Action action = GetActionFromIndex(hoveredButton);
         Item.OnAction(action);
-        Close();
+        CloseNext();
         //Debug.Log("Action: " + action.ToString());
     }
 
-    void Close() {
-        Destroy(gameObject);
+    void CloseNext() {
+        closeWheel = true;
     }
 
     void HoverButton() {
@@ -128,6 +133,7 @@ public class ActionWheel : MonoBehaviour {
 
     Action GetActionFromIndex(int index) {
         if(index >= 0 && index < actions.Length) {
+            //Debug.Log("index: " + index + " => Action: " + actions[index]);
             return actions[index];
         }
         return Action.None;
@@ -138,11 +144,12 @@ public class ActionWheel : MonoBehaviour {
     }
 
     private void CheckMouseOver() {
-        if (col.HasBeenClickedOn(LayerMask.NameToLayer("Interactable"))) {
+        if (col.HasBeenClickedOn(LayerMask.NameToLayer("GameUI"))) {
             int buttonIndex = GetButtonIndex(Input.mousePosition);
             if(buttonIndex != hoveredButton) {
                 hoveredButton = buttonIndex;
                 HoverButton();
+                SoundManager.Instance.PlayButtonSound();
             }
         } else if (hoveredButton != -1) {
             hoveredButton = -1;

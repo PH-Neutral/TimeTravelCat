@@ -23,16 +23,21 @@ public class Inventory : MonoBehaviour {
        //transform.GetComponentInChildren<HorizontalLayoutGroup>().enabled = false;
     }
 
+    public void PickUpItem(Interactable item) {
+        AddItem(item);
+    }
+
     public bool AddItem(Interactable item) {
         Slot emptySlot;
         if ((emptySlot = GetFirstEmptySlot()) != null) {
             SlotItem slotItem = Instantiate(GameManager.Instance.prefabSlotItem, emptySlot.transform);
             slotItem.slot = emptySlot;
+            item.gameObject.SetActive(true);
             slotItem.FromInteractable(item);
             emptySlot.AddItem(slotItem);
             return true;
         }
-        Debug.Log("Failed to add to Inventory...");
+        //Debug.Log("Failed to add to Inventory...");
         return false;
     }
 

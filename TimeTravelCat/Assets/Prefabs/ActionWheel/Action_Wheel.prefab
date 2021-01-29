@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4808524936752957012}
   - component: {fileID: 4808524936752957013}
   - component: {fileID: 4808524936752957010}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Action_Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4808524936752957011}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children:
   - {fileID: 4808524938162256120}
@@ -47,16 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb4970c2ef637043a0b9f452ebd3a5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteBackground: {fileID: 21300000, guid: 3dd0071687445f246b3629d94c40cd44, type: 3}
   spriteCenter: {fileID: 21300000, guid: 6b984ef24da826c4681f9d692bc44689, type: 3}
   spriteArm: {fileID: 21300000, guid: 226c9e73aa0b5b54a95fca9c17c5c598, type: 3}
   prefabMask: {fileID: 4473780230568609393, guid: 13005cb90355b7b43a71c7cdcd4875e6,
     type: 3}
-  backgroundColor: {r: 1, g: 1, b: 1, a: 1}
-  spriteIcons:
-  - {fileID: 21300000, guid: e794f59efff81d64c90c37761a6e7084, type: 3}
-  - {fileID: 21300000, guid: fa1cf8a06d5127f469389f78199b4632, type: 3}
-  - {fileID: 21300000, guid: a2312b8277ce0094c8dd93869c5d2683, type: 3}
   prefabIcon: {fileID: 2720030437126272818, guid: bbdc078671a25084fa850d979b7b4b7b,
     type: 3}
   actions: 010000000200000003000000
@@ -85,7 +79,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4808524937080868246}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Masks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4808524938162256120}
   - component: {fileID: 4808524938162256123}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +169,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1367249145
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 4753de14ce7a3014aa4d13acb6c68064, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -196,7 +190,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4808524938187644344}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Icons
   m_TagString: Untagged
   m_Icon: {fileID: 0}

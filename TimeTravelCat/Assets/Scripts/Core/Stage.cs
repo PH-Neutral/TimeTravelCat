@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Stage : MonoBehaviour {
+    [SerializeField] AudioClip backgroundMusic = null;
     Stage nextStage = null;
 
     public void Next(Stage nextStage) {
@@ -10,6 +11,7 @@ public class Stage : MonoBehaviour {
         StartCoroutine(nameof(RoutineNext));
     }
     IEnumerator RoutineNext() {
+        GameManager.Instance.StopStageThings();
         yield return RoutineLeave();
         nextStage.gameObject.SetActive(true);
         nextStage.Enter();
@@ -23,14 +25,20 @@ public class Stage : MonoBehaviour {
     public IEnumerator RoutineEnter() => RoutineEnter(GameManager.Instance.stageFadeDuration);
     public IEnumerator RoutineEnter(float fadeDuration) {
         //Debug.Log("Enter Stage");
-        yield return GameManager.Instance.blackScreen.FadeIn(fadeDuration);
+        if (GameManager.Instance.blackScreen.gameObject.activeInHierarchy) {
+            yield return GameManager.Instance.blackScreen.FadeIn(fadeDuration);
+        }
         GameManager.Instance.actualStage = this;
+        SoundManager.Instance.PlayMusic(backgroundMusic, true);
     }
 
     public void Leave() {
         StartCoroutine(nameof(RoutineLeave));
     }
-    IEnumerator RoutineLeave() {
-        yield return GameManager.Instance.blackScreen.FadeOut(GameManager.Instance.stageFadeDuration);
+    public IEnumerator RoutineLeave() => RoutineLeave(GameManager.Instance.stageFadeDuration);
+    public IEnumerator RoutineLeave(float fadeDuration) {
+        if(GameManager.Instance.blackScreen.gameObject.activeInHierarchy) {
+            yield return GameManager.Instance.blackScreen.FadeOut(fadeDuration);
+        }
     }
 }
